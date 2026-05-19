@@ -1,0 +1,33 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,
+body{
+  width:100%;
+  overflow-x:hidden;
+  scroll-behavior:auto;
+  background:#0A0A0A;
+  color:#fff;
+}
+
+body{
+  font-family:"Cormorant Garamond", serif;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+ul,
+li{
+  list-style:none;
+}
+
+img{
+  width:100%;
+  display:block;
+}

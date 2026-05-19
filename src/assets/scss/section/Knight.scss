@@ -1,0 +1,620 @@
+// ============================================================
+// KNIGHT.SCSS — THE KNIGHT'S FALL
+// Dark crimson · Fractured · Survivor's guilt
+// ============================================================
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+
+// ── Tokens ──────────────────────────────────────────────────
+:root {
+  --knight-bg:        #0a0806;
+  --knight-surface:   #110d0a;
+  --knight-border:    #2a1f18;
+  --knight-crimson:   #8b1a1a;
+  --knight-blood:     #c0392b;
+  --knight-rust:      #5c2e1a;
+  --knight-ash:       #3d3028;
+  --knight-cream:     #d4c4a8;
+  --knight-pale:      #a89880;
+  --knight-ghost:     #6b5c50;
+  --knight-white:     #f0e8d8;
+
+  --knight-font-display: 'Cinzel', serif;
+  --knight-font-body:    'EB Garamond', serif;
+
+  --knight-transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+// ── Reset ────────────────────────────────────────────────────
+.knight-story * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// ── Root Container ───────────────────────────────────────────
+.knight-story {
+  background: var(--knight-bg);
+  color: var(--knight-cream);
+  font-family: var(--knight-font-body);
+  font-size: 18px;
+  line-height: 1.9;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  // Noise grain overlay
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+}
+
+// ── Progress Bar ─────────────────────────────────────────────
+.knight-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--knight-blood);
+  z-index: 999;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 8px var(--knight-crimson);
+}
+
+// ── Navigation ───────────────────────────────────────────────
+.knight-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(10,8,6,0.95) 0%, transparent 100%);
+
+  &__symbol {
+    font-family: var(--knight-font-display);
+    font-size: 22px;
+    color: var(--knight-blood);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  &__chapters {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  &__chapter {
+    font-family: var(--knight-font-display);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--knight-ghost);
+
+    transition: color var(--knight-transition);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--knight-blood);
+      transition: width var(--knight-transition);
+    }
+
+    &:hover,
+    &.active {
+      color: var(--knight-blood);
+      &::after { width: 100%; }
+    }
+  }
+}
+
+// ── Hero / Cover ─────────────────────────────────────────────
+.knight-cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 120px 48px 80px;
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 50% 40%, rgba(139,26,26,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(92,46,26,0.08) 0%, transparent 60%),
+      var(--knight-bg);
+  }
+
+  // Diagonal slash decoration
+  &__slash {
+    position: absolute;
+    top: 0;
+    right: 15%;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 0%, var(--knight-crimson) 30%, var(--knight-rust) 70%, transparent 100%);
+    opacity: 0.3;
+    transform: rotate(8deg);
+    transform-origin: top;
+  }
+
+  &__piece {
+    font-size: clamp(80px, 15vw, 140px);
+    line-height: 1;
+    margin-bottom: 32px;
+    filter: drop-shadow(0 0 40px rgba(139,26,26,0.6));
+    animation: knightFloat 4s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__eyebrow {
+    font-family: var(--knight-font-display);
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--knight-blood);
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__title {
+    font-family: var(--knight-font-display);
+    font-size: clamp(40px, 7vw, 80px);
+    font-weight: 900;
+    line-height: 1.0;
+    text-align: center;
+    color: var(--knight-white);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+
+    em {
+      color: var(--knight-blood);
+      font-style: normal;
+    }
+  }
+
+  &__subtitle {
+    font-family: var(--knight-font-body);
+    font-size: 15px;
+    font-style: italic;
+    color: var(--knight-pale);
+    letter-spacing: 0.1em;
+    margin-bottom: 64px;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--knight-font-display);
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--knight-ghost);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+}
+
+// ── Scene Base ───────────────────────────────────────────────
+.knight-scene {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 100px 48px;
+  position: relative;
+
+  &--wide {
+    max-width: 960px;
+  }
+
+  &--centered {
+    text-align: center;
+  }
+}
+
+// ── Chapter Header ───────────────────────────────────────────
+.knight-chapter {
+  margin-bottom: 64px;
+
+  &__number {
+    font-family: var(--knight-font-display);
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--knight-blood);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    font-family: var(--knight-font-display);
+    font-size: clamp(24px, 4vw, 40px);
+    font-weight: 900;
+    color: var(--knight-white);
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+    text-transform: uppercase;
+
+    &--sub {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--knight-pale);
+      font-style: italic;
+      display: block;
+      margin-top: 8px;
+      letter-spacing: 0.2em;
+      text-transform: none;
+      font-family: var(--knight-font-body);
+    }
+  }
+
+  &__rule {
+    width: 48px;
+    height: 1px;
+    background: var(--knight-blood);
+    margin-top: 24px;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: -16px;
+      top: -2px;
+      width: 4px;
+      height: 4px;
+      background: var(--knight-blood);
+      transform: rotate(45deg);
+    }
+  }
+}
+
+// ── Story Lines ──────────────────────────────────────────────
+.knight-line {
+  font-family: var(--knight-font-body);
+  font-size: 18px;
+  line-height: 2;
+  color: var(--knight-cream);
+  margin-bottom: 8px;
+  display: block;
+
+  &--em {
+    color: var(--knight-white);
+    font-weight: 500;
+  }
+
+  &--pale {
+    color: var(--knight-pale);
+  }
+
+  &--ghost {
+    color: var(--knight-ghost);
+    font-style: italic;
+  }
+
+  &--blood {
+    color: var(--knight-blood);
+    font-weight: 500;
+  }
+
+  &--thought {
+    color: var(--knight-pale);
+    font-style: italic;
+    padding-left: 32px;
+    border-left: 2px solid var(--knight-rust);
+    margin: 24px 0;
+  }
+
+  &--dialogue {
+    color: var(--knight-white);
+    font-style: italic;
+    padding-left: 48px;
+    position: relative;
+
+    &::before {
+      content: '"';
+      position: absolute;
+      left: 24px;
+      color: var(--knight-blood);
+      font-size: 24px;
+      line-height: 1;
+      top: 4px;
+    }
+  }
+
+  &--space {
+    display: block;
+    height: 24px;
+  }
+
+  &--space-lg {
+    display: block;
+    height: 48px;
+  }
+}
+
+// ── Divider ──────────────────────────────────────────────────
+.knight-divider {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 64px 0;
+
+  &__line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--knight-border), transparent);
+  }
+
+  &__symbol {
+    color: var(--knight-blood);
+    font-size: 18px;
+    opacity: 0.7;
+  }
+}
+
+// ── Flower Room ──────────────────────────────────────────────
+.knight-flower-room {
+  background: var(--knight-surface);
+  border: 1px solid var(--knight-border);
+  padding: 48px;
+  margin: 48px 0;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(139,26,26,0.06) 0%, transparent 70%);
+  }
+
+  &__label {
+    font-family: var(--knight-font-display);
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--knight-ghost);
+    margin-bottom: 32px;
+    display: block;
+  }
+
+  &__flowers {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+
+  &__flower {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    
+    transition: transform var(--knight-transition);
+
+    &:hover {
+      transform: translateY(-4px);
+
+      .knight-flower-room__petal {
+        background: var(--knight-blood);
+        box-shadow: 0 0 16px rgba(192,57,43,0.4);
+      }
+
+      .knight-flower-room__flower-label {
+        color: var(--knight-blood);
+      }
+    }
+
+    &.withered {
+      .knight-flower-room__petal {
+        background: var(--knight-ash);
+        opacity: 0.5;
+      }
+    }
+  }
+
+  &__petal {
+    width: 12px;
+    height: 48px;
+    background: var(--knight-rust);
+    border-radius: 6px;
+    transition: background var(--knight-transition), box-shadow var(--knight-transition);
+  }
+
+  &__flower-label {
+    font-family: var(--knight-font-display);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--knight-ghost);
+    transition: color var(--knight-transition);
+  }
+
+  &__caption {
+    font-family: var(--knight-font-body);
+    font-size: 14px;
+    font-style: italic;
+    color: var(--knight-ghost);
+    line-height: 1.7;
+  }
+}
+
+// ── Sword Drop ───────────────────────────────────────────────
+.knight-sword {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 0;
+  gap: 16px;
+
+  &__blade {
+    width: 2px;
+    height: 80px;
+    background: linear-gradient(to bottom, var(--knight-pale), var(--knight-ghost));
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -4px;
+      width: 10px;
+      height: 2px;
+      background: var(--knight-pale);
+    }
+  }
+
+  &__text {
+    font-family: var(--knight-font-display);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--knight-ghost);
+  }
+}
+
+// ── Main Copy Block ───────────────────────────────────────────
+.knight-copy {
+  text-align: center;
+  padding: 80px 48px;
+  background: var(--knight-surface);
+  border-top: 1px solid var(--knight-border);
+  border-bottom: 1px solid var(--knight-border);
+  margin: 80px 0;
+
+  &__piece {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 24px;
+    animation: knightFloat 4s ease-in-out infinite;
+  }
+
+  &__text {
+    font-family: var(--knight-font-display);
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.6;
+    color: var(--knight-white);
+    text-transform: uppercase;
+
+    em {
+      color: var(--knight-blood);
+      font-style: normal;
+    }
+  }
+}
+
+// ── Epilogue ─────────────────────────────────────────────────
+.knight-epilogue {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 48px;
+  position: relative;
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 50% 60% at 50% 50%, rgba(139,26,26,0.08) 0%, transparent 70%);
+  }
+
+  &__pieces {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 48px;
+    font-size: 36px;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+// ── Scroll Reveal ─────────────────────────────────────────────
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @for $i from 1 through 12 {
+    &:nth-child(#{$i}) {
+      transition-delay: #{($i - 1) * 0.08}s;
+    }
+  }
+}
+
+// ── Keyframes ─────────────────────────────────────────────────
+@keyframes knightFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 1; }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92%       { opacity: 1; }
+  93%       { opacity: 0.6; }
+  94%       { opacity: 1; }
+  96%       { opacity: 0.7; }
+  97%       { opacity: 1; }
+}
+
+// ── Responsive ───────────────────────────────────────────────
+@media (max-width: 768px) {
+  .knight-nav {
+    padding: 16px 24px;
+
+    &__chapters { display: none; }
+  }
+
+  .knight-scene {
+    padding: 60px 24px;
+  }
+
+  .knight-cover {
+    padding: 100px 24px 60px;
+  }
+
+  .knight-flower-room {
+    padding: 32px 24px;
+  }
+
+  .knight-copy {
+    padding: 60px 24px;
+  }
+}

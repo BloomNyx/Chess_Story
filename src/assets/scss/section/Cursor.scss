@@ -1,0 +1,51 @@
+body {
+  cursor: none;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: #d4af37;
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.9);
+}
+
+.cursor-trail {
+  width: 40px;
+  height: 40px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9998;
+
+  border: 1.5px solid rgba(212, 175, 55, 0.6);
+  border-radius: 50%;
+
+  background: transparent;
+
+  box-shadow:
+    0 0 10px rgba(212, 175, 55, 0.2),
+    inset 0 0 10px rgba(212, 175, 55, 0.05);
+
+  filter: blur(0.3px);
+
+  transition: width 0.2s ease, height 0.2s ease;
+}
+
+a:hover ~ .cursor-trail,
+button:hover ~ .cursor-trail {
+  width: 60px;
+  height: 60px;
+  border-color: rgba(212, 175, 55, 0.9);
+}

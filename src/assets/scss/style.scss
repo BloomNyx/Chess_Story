@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+// Setting
+@import "setting/fonts.scss";
+@import "setting/vars.scss";
+@import "setting/reset.scss";
+@import "setting/mixin.scss";
+
+// Section
+@import "section/loading.scss";
+@import "section/hero.scss";
+@import "section/Cursor.scss";
+@import "section/prologue.scss";
+@import "section/Queen.scss";
+@import "section/Knight.scss";
+@import "section/Bishop.scss";
+
+body{
+  background:var(--bg);
+  color:var(--white);
+  cursor: none !important;
+}

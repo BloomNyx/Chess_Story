@@ -1,0 +1,108 @@
+.prologue {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #050505;
+  overflow: hidden;
+}
+
+.prologue-inner {
+  text-align: center;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+/* 작은 라벨 */
+.prologue-kicker {
+  display: block;
+  color: #666;
+  letter-spacing: 0.4em;
+  font-size: 12px;
+  margin-bottom: 30px;
+}
+
+/* 핵심 문장 */
+.prologue-title {
+  font-size: clamp(26px, 4vw, 52px);
+  color: #d4af37;
+  font-family: serif;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+/* 보조 문장 */
+.prologue-sub {
+  margin-top: 15px;
+  font-size: clamp(14px, 1.5vw, 18px);
+  color: #aaa;
+  letter-spacing: 0.05em;
+}
+
+/* 라인 */
+.prologue-line {
+  width: 120px;
+  height: 1px;
+  background: rgba(212, 175, 55, 0.5);
+  margin: 40px auto;
+}
+
+/* 마지막 선언 */
+.prologue-final {
+  color: #ddd;
+  font-size: clamp(16px, 2vw, 22px);
+  line-height: 1.6;
+}
+
+.scroll-down {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  letter-spacing: 4px;
+  opacity: 0.6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.scroll-down span {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.line {
+  width: 1px;
+  height: 70px;
+  background: rgba(216, 188, 140, 0.4);
+  animation: scrollLine 1.6s infinite;
+}
+
+
+@keyframes scrollLine {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+
+  51% {
+    transform-origin: bottom;
+  }
+
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
