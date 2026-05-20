@@ -6,6 +6,8 @@ import Prologue from "./assets/components/Prologue";
 import Queen from "./assets/components/Queen";
 import Knight from "./assets/components/Knight";
 import Bishop from "./assets/components/Bishop";
+import Rook from "./assets/components/Rook";
+import Pawn from "./assets/components/Pawn";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -24,6 +26,8 @@ export default function App() {
             <Queen />
             <Knight />
             <Bishop />
+            <Rook />
+            <Pawn />
           </>
         )}
       </main>
