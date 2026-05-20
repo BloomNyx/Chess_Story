@@ -8,7 +8,9 @@ import Knight from "./assets/components/Knight";
 import Bishop from "./assets/components/Bishop";
 import Rook from "./assets/components/Rook";
 import Pawn from "./assets/components/Pawn";
+import "./assets//components/King";
 import HeaderManager from "./assets/components/header/HeaderManager";
+import King from "./assets//components/King";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -29,6 +31,7 @@ export default function App() {
             <Bishop />
             <Rook />
             <Pawn />
+            <King />
           </>
         )}
       </main>

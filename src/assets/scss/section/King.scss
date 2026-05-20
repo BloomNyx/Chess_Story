@@ -1,0 +1,692 @@
+// ============================================================
+// KING.SCSS — THE KING'S GAME
+// Golden throne · Dissolving authority · The last piece
+// ============================================================
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&family=Cinzel+Decorative:wght@400;700&display=swap');
+
+// ── Tokens ───────────────────────────────────────────────────
+:root {
+  --king-bg:           #06050a;
+  --king-surface:      #0c0a10;
+  --king-deep:         #100e16;
+  --king-border:       #1e1a2a;
+  --king-void:         #0a0810;
+
+  --king-gold:         #d4a843;
+  --king-gold-bright:  #f0c860;
+  --king-gold-dim:     #7a5e20;
+  --king-gold-ghost:   #3a2e10;
+  --king-amber:        #c87820;
+
+  --king-purple:       #3a2a5a;
+  --king-violet:       #2a1e46;
+  --king-lilac:        #6a5890;
+
+  --king-ivory:        #e0d4b8;
+  --king-cream:        #c8bc98;
+  --king-parchment:    #a09070;
+  --king-mist:         #685e4a;
+  --king-shadow:       #3a3428;
+  --king-ghost:        #28221a;
+
+  --king-font-display: 'Cinzel Decorative', serif;
+  --king-font-body:    'Cormorant', serif;
+
+  --king-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+// ── Reset ─────────────────────────────────────────────────────
+.king-story * { margin: 0; padding: 0; box-sizing: border-box; }
+
+// ── Root ──────────────────────────────────────────────────────
+.king-story {
+  background: var(--king-bg);
+  color: var(--king-ivory);
+  font-family: var(--king-font-body);
+  font-size: 19px;
+  line-height: 2.1;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  // Royal vignette
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 100% 60% at 50% 0%, rgba(58,42,90,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 0% 100%, rgba(212,168,67,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 80% at 100% 100%, rgba(212,168,67,0.03) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  // Fine grain noise
+  &::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+  }
+}
+
+// ── Progress ──────────────────────────────────────────────────
+.king-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--king-gold-dim), var(--king-gold), var(--king-gold-bright));
+  z-index: 999;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 12px rgba(212,168,67,0.5), 0 0 30px rgba(212,168,67,0.2);
+}
+
+// ── Nav ───────────────────────────────────────────────────────
+.king-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(6,5,10,0.98) 0%, transparent 100%);
+
+  &__symbol {
+    font-family: var(--king-font-display);
+    font-size: 14px;
+    color: var(--king-gold);
+    letter-spacing: 0.2em;
+    filter: drop-shadow(0 0 8px rgba(212,168,67,0.4));
+  }
+
+  &__chapters {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  &__chapter {
+    font-family: var(--king-font-display);
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--king-mist);
+    cursor: pointer;
+    transition: color 0.3s var(--king-ease);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--king-gold);
+      transition: width 0.4s var(--king-ease);
+    }
+
+    &:hover, &.active {
+      color: var(--king-gold);
+      &::after { width: 100%; }
+    }
+  }
+}
+
+// ── Cover ─────────────────────────────────────────────────────
+.king-cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 120px 56px 80px;
+
+  &__bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 70% at 50% 35%, rgba(58,42,90,0.18) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 50% at 50% 80%, rgba(212,168,67,0.06) 0%, transparent 60%),
+      var(--king-bg);
+  }
+
+  // Crown rays (light beams from top)
+  &__rays {
+    position: absolute;
+    top: -100px; left: 50%;
+    transform: translateX(-50%);
+    width: 800px; height: 600px;
+    background: conic-gradient(
+      from 260deg at 50% 0%,
+      transparent 0deg,
+      rgba(212,168,67,0.03) 5deg,
+      transparent 10deg,
+      rgba(212,168,67,0.02) 15deg,
+      transparent 20deg,
+      rgba(212,168,67,0.03) 25deg,
+      transparent 30deg,
+      rgba(212,168,67,0.02) 35deg,
+      transparent 40deg
+    );
+    pointer-events: none;
+  }
+
+  // Corner ornaments
+  &__ornament {
+    position: absolute;
+    width: 80px; height: 80px;
+    opacity: 0.12;
+
+    &--tl { top: 80px; left: 56px; border-top: 1px solid var(--king-gold); border-left: 1px solid var(--king-gold); }
+    &--tr { top: 80px; right: 56px; border-top: 1px solid var(--king-gold); border-right: 1px solid var(--king-gold); }
+    &--bl { bottom: 80px; left: 56px; border-bottom: 1px solid var(--king-gold); border-left: 1px solid var(--king-gold); }
+    &--br { bottom: 80px; right: 56px; border-bottom: 1px solid var(--king-gold); border-right: 1px solid var(--king-gold); }
+  }
+
+  &__piece {
+    font-size: clamp(100px, 18vw, 170px);
+    line-height: 1;
+    margin-bottom: 32px;
+    color: var(--king-gold);
+    filter: drop-shadow(0 0 60px rgba(212,168,67,0.4)) drop-shadow(0 0 120px rgba(212,168,67,0.15));
+    animation: kingFloat 6s ease-in-out infinite;
+    position: relative; z-index: 1;
+  }
+
+  &__eyebrow {
+    font-family: var(--king-font-display);
+    font-size: 9px;
+    letter-spacing: 0.7em;
+    color: var(--king-gold-dim);
+    margin-bottom: 24px;
+    position: relative; z-index: 1;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    font-family: var(--king-font-display);
+    font-size: clamp(32px, 5.5vw, 72px);
+    line-height: 1.1;
+    text-align: center;
+    color: var(--king-ivory);
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+    position: relative; z-index: 1;
+
+    em {
+      color: var(--king-gold);
+      font-style: normal;
+      filter: drop-shadow(0 0 20px rgba(212,168,67,0.3));
+    }
+  }
+
+  &__subtitle {
+    font-family: var(--king-font-body);
+    font-size: 16px;
+    font-style: italic;
+    color: var(--king-mist);
+    letter-spacing: 0.12em;
+    margin-bottom: 72px;
+    position: relative; z-index: 1;
+  }
+
+  // All pieces row at bottom
+  &__pieces-row {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    position: relative; z-index: 1;
+    margin-bottom: 40px;
+
+    span {
+      font-size: 22px;
+      color: var(--king-gold-ghost);
+      transition: color 0.3s;
+
+      &.highlight {
+        color: var(--king-gold);
+        filter: drop-shadow(0 0 8px rgba(212,168,67,0.5));
+        font-size: 28px;
+      }
+    }
+  }
+
+  &__scroll {
+    position: absolute; bottom: 40px; left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--king-font-display);
+    font-size: 8px;
+    letter-spacing: 0.5em;
+    color: var(--king-ghost);
+    animation: kingPulse 3s ease-in-out infinite;
+    text-transform: uppercase;
+  }
+}
+
+// ── Scene ─────────────────────────────────────────────────────
+.king-scene {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 100px 56px;
+  position: relative; z-index: 1;
+
+  &--centered { text-align: center; }
+  &--wide { max-width: 1000px; }
+}
+
+// ── Chapter Header ────────────────────────────────────────────
+.king-chapter {
+  margin-bottom: 60px;
+
+  &__number {
+    font-family: var(--king-font-display);
+    font-size: 9px;
+    letter-spacing: 0.6em;
+    color: var(--king-gold-dim);
+    display: block;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    font-family: var(--king-font-display);
+    font-size: clamp(18px, 3vw, 32px);
+    color: var(--king-ivory);
+    line-height: 1.2;
+    letter-spacing: 0.06em;
+
+    &--sub {
+      display: block;
+      font-family: var(--king-font-body);
+      font-size: 14px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--king-mist);
+      letter-spacing: 0.2em;
+      margin-top: 10px;
+    }
+  }
+
+  &__rule {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 24px;
+
+    &-line {
+      width: 48px; height: 1px;
+      background: linear-gradient(to right, var(--king-gold-dim), transparent);
+    }
+
+    &-diamond {
+      width: 5px; height: 5px;
+      background: var(--king-gold-dim);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+  }
+}
+
+// ── Lines ─────────────────────────────────────────────────────
+.king-line {
+  font-family: var(--king-font-body);
+  font-size: 19px;
+  line-height: 2.1;
+  color: var(--king-ivory);
+  display: block;
+  margin-bottom: 2px;
+
+  &--em     { color: #fff; font-weight: 600; }
+  &--pale   { color: var(--king-parchment); }
+  &--ghost  { color: var(--king-mist); font-style: italic; }
+  &--void   { color: var(--king-shadow); font-style: italic; }
+  &--gold   { color: var(--king-gold); }
+  &--amber  { color: var(--king-amber); font-weight: 600; }
+
+  &--thought {
+    color: var(--king-parchment);
+    font-style: italic;
+    font-weight: 300;
+    padding-left: 32px;
+    border-left: 1px solid var(--king-gold-ghost);
+    margin: 24px 0;
+    letter-spacing: 0.04em;
+  }
+
+  &--dialogue {
+    color: var(--king-ivory);
+    font-style: italic;
+    padding-left: 48px;
+    position: relative;
+
+    &::before {
+      content: '—';
+      position: absolute;
+      left: 24px;
+      color: var(--king-gold-dim);
+    }
+  }
+
+  &--mistake {
+    color: var(--king-amber);
+    font-style: italic;
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    text-align: right;
+    display: block;
+    padding-right: 24px;
+    opacity: 0.8;
+  }
+
+  &--space    { display: block; height: 22px; }
+  &--space-lg { display: block; height: 52px; }
+}
+
+// ── Divider ──────────────────────────────────────────────────
+.king-divider {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 64px 0;
+
+  &__line {
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, transparent, var(--king-border), transparent);
+  }
+
+  &__crown {
+    color: var(--king-gold-dim);
+    font-size: 16px;
+    opacity: 0.5;
+    filter: drop-shadow(0 0 4px rgba(212,168,67,0.2));
+  }
+}
+
+// ── Mistake Counter ───────────────────────────────────────────
+.king-mistakes {
+  background: var(--king-deep);
+  border: 1px solid var(--king-border);
+  border-left: 2px solid var(--king-amber);
+  padding: 32px 40px;
+  margin: 40px 0;
+
+  &__label {
+    font-family: var(--king-font-display);
+    font-size: 8px;
+    letter-spacing: 0.5em;
+    color: var(--king-gold-dim);
+    display: block;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+
+    &-num {
+      font-family: var(--king-font-display);
+      font-size: 10px;
+      color: var(--king-amber);
+      min-width: 80px;
+      letter-spacing: 0.1em;
+    }
+
+    &-text {
+      font-family: var(--king-font-body);
+      font-size: 16px;
+      font-style: italic;
+      color: var(--king-parchment);
+      font-weight: 300;
+    }
+  }
+}
+
+// ── Chess Board (small) ────────────────────────────────────────
+.king-board {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  width: 100%;
+  max-width: 320px;
+  margin: 40px auto;
+  border: 1px solid var(--king-border);
+
+  &__cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: background 0.3s;
+
+    &--dark  { background: var(--king-deep); }
+    &--light { background: var(--king-surface); }
+    &--piece { font-size: 22px; }
+    &--king  { color: var(--king-gold); filter: drop-shadow(0 0 6px rgba(212,168,67,0.5)); }
+    &--queen { color: var(--king-parchment); opacity: 0.3; }
+    &--empty-king { color: var(--king-gold-ghost); font-size: 14px; }
+  }
+}
+
+// ── Throne Room Moment ────────────────────────────────────────
+.king-throne {
+  text-align: center;
+  padding: 56px 40px;
+  background: var(--king-deep);
+  border: 1px solid var(--king-border);
+  border-top: 1px solid rgba(212,168,67,0.2);
+  margin: 44px 0;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 200px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--king-gold-dim), transparent);
+  }
+
+  &__piece {
+    font-size: 40px;
+    display: block;
+    color: var(--king-gold);
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 16px rgba(212,168,67,0.3));
+  }
+
+  &__text {
+    font-family: var(--king-font-body);
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--king-parchment);
+    line-height: 2;
+    letter-spacing: 0.04em;
+  }
+}
+
+// ── Piece Memory (판 밖의 말들) ────────────────────────────────
+.king-memory {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+  padding: 32px 40px;
+  background: var(--king-surface);
+  border: 1px solid var(--king-border);
+  margin: 40px 0;
+  flex-wrap: wrap;
+
+  &__label {
+    width: 100%;
+    font-family: var(--king-font-display);
+    font-size: 8px;
+    letter-spacing: 0.5em;
+    color: var(--king-mist);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  &__piece {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.4;
+    transition: opacity 0.4s var(--king-ease), transform 0.4s var(--king-ease);
+    cursor: default;
+
+    &:hover { opacity: 1; transform: translateY(-4px); }
+
+    &--gone { opacity: 0.15; }
+    &--alive { opacity: 0.6; }
+    &--king  { opacity: 1; }
+
+    &-icon { font-size: 28px; color: var(--king-gold); }
+    &-name {
+      font-family: var(--king-font-display);
+      font-size: 7px;
+      letter-spacing: 0.2em;
+      color: var(--king-mist);
+      text-transform: uppercase;
+    }
+
+    &-status {
+      font-family: var(--king-font-body);
+      font-size: 11px;
+      font-style: italic;
+      color: var(--king-shadow);
+    }
+  }
+}
+
+// ── Main Copy ─────────────────────────────────────────────────
+.king-copy {
+  text-align: center;
+  padding: 80px 56px;
+  background: var(--king-deep);
+  border-top: 1px solid rgba(212,168,67,0.15);
+  border-bottom: 1px solid rgba(212,168,67,0.15);
+  margin: 80px 0;
+  position: relative; z-index: 1;
+
+  &::before, &::after {
+    content: '◆';
+    position: absolute;
+    left: 50%; transform: translateX(-50%);
+    color: var(--king-gold-dim);
+    font-size: 8px;
+    opacity: 0.5;
+  }
+  &::before { top: -5px; }
+  &::after  { bottom: -5px; }
+
+  &__piece {
+    font-size: 52px;
+    display: block;
+    margin-bottom: 28px;
+    color: var(--king-gold);
+    animation: kingFloat 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(212,168,67,0.3));
+  }
+
+  &__text {
+    font-family: var(--king-font-display);
+    font-size: clamp(13px, 2vw, 18px);
+    line-height: 2;
+    color: var(--king-ivory);
+    letter-spacing: 0.12em;
+
+    em { color: var(--king-gold); font-style: normal; }
+  }
+
+  &__sub {
+    font-family: var(--king-font-body);
+    font-size: 15px;
+    font-style: italic;
+    color: var(--king-mist);
+    margin-top: 24px;
+    display: block;
+    letter-spacing: 0.1em;
+  }
+}
+
+// ── Epilogue ──────────────────────────────────────────────────
+.king-epilogue {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 56px;
+  position: relative;
+
+  &__bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 50%, rgba(58,42,90,0.1) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 50% 80%, rgba(212,168,67,0.04) 0%, transparent 60%);
+  }
+
+  &__throne {
+    font-size: clamp(60px, 12vw, 110px);
+    color: var(--king-gold);
+    display: block;
+    margin-bottom: 40px;
+    filter: drop-shadow(0 0 40px rgba(212,168,67,0.25));
+    animation: kingFloat 8s ease-in-out infinite;
+    position: relative; z-index: 1;
+  }
+}
+
+// ── Scroll Reveal ─────────────────────────────────────────────
+.k-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+
+  &.visible { opacity: 1; transform: translateY(0); }
+
+  @for $i from 1 through 12 {
+    &:nth-child(#{$i}) { transition-delay: #{($i - 1) * 0.06}s; }
+  }
+}
+
+// ── Keyframes ─────────────────────────────────────────────────
+@keyframes kingFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes kingPulse {
+  0%, 100% { opacity: 0.15; }
+  50%       { opacity: 0.6; }
+}
+
+@keyframes goldGlow {
+  0%, 100% { filter: drop-shadow(0 0 20px rgba(212,168,67,0.3)); }
+  50%       { filter: drop-shadow(0 0 40px rgba(212,168,67,0.6)); }
+}
+
+// ── Responsive ───────────────────────────────────────────────
+@media (max-width: 768px) {
+  .king-nav { padding: 14px 20px; &__chapters { display: none; } }
+  .king-scene { padding: 60px 20px; }
+  .king-cover { padding: 100px 20px 60px; &__ornament { display: none; } }
+  .king-copy  { padding: 60px 20px; }
+  .king-mistakes { padding: 24px 20px; }
+  .king-memory { padding: 24px 16px; gap: 12px; }
+}

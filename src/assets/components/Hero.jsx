@@ -9,7 +9,8 @@ export default function Hero() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // INTRO ANIMATION
+
+      // INTRO
       gsap.from(".hero-title", {
         opacity: 0,
         y: 60,
@@ -32,13 +33,20 @@ export default function Hero() {
         delay: 0.8,
       });
 
+      gsap.from(".hero-buttons", {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        delay: 1.1,
+      });
+
       gsap.from(".scroll-down", {
         opacity: 0,
         y: 20,
         delay: 1.5,
       });
 
-      // PIN SCROLL (HERO LOCK)
+      // HERO PIN
       gsap.to(heroRef.current, {
         scrollTrigger: {
           trigger: heroRef.current,
@@ -49,7 +57,7 @@ export default function Hero() {
         },
       });
 
-      // BACKGROUND DEPTH EFFECT
+      // BG EFFECT
       gsap.to(".hero-bg", {
         scale: 1.2,
         filter: "blur(0px)",
@@ -60,6 +68,7 @@ export default function Hero() {
           scrub: true,
         },
       });
+
     }, heroRef);
 
     return () => ctx.revert();
@@ -67,28 +76,50 @@ export default function Hero() {
 
   return (
     <section className="hero" ref={heroRef}>
+
       <div className="hero-bg" />
 
       <div className="overlay" />
 
       <div className="hero-inner">
-        <span className="hero-sub">THE ROYAL COURT OF ELDORIA</span>
 
-        <h1 className="hero-title">BLACK THRONE</h1>
+        <span className="hero-sub">
+          THE ROYAL COURT OF ELDORIA
+        </span>
+
+        <h1 className="hero-title">
+          BLACK THRONE
+        </h1>
 
         <p className="hero-desc">
           THE KING NEVER LOST.
           <br />
           HE ONLY MOVED DIFFERENT PIECES.
         </p>
+
+        {/* BUTTONS */}
+        <div className="hero-buttons">
+
+          <button className="hero-btn gold">
+            ENTER THE GAME
+          </button>
+
+          <button className="hero-btn dark">
+            READ THE STORY
+          </button>
+
+        </div>
+
       </div>
 
       <div className="scroll-down">
+
         <span>SCROLL TO ENTER</span>
 
         <div className="line"></div>
 
       </div>
+
     </section>
   );
 }

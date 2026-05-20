@@ -5,6 +5,7 @@ import KnightHeader from "./KnightHeader";
 import BishopHeader from "./BishopHeader";
 import RookHeader from "./RookHeader";
 import PawnHeader from "./PawnHeader";
+import KingHeader from "./KingHeader";
 
 import "../../scss/section/Header.scss";
 
@@ -90,6 +91,7 @@ export default function HeaderManager() {
       {currentHeader === "bishop" && <BishopHeader />}
       {currentHeader === "rook" && <RookHeader />}
       {currentHeader === "pawn" && <PawnHeader />}
+      {currentHeader === "king" && <KingHeader />}
     </div>
   );
 
