@@ -759,35 +759,16 @@ export default function Queen() {
       {/* Progress */}
       <div className="progress-bar" style={{ width: `${progress}%` }} aria-hidden />
 
-      {/* Nav */}
-      <nav className="nav" role="navigation">
-        <a className="nav__logo" href="#prologue" {...hoverProps}>
-          THE KING'S GAME
-        </a>
-        <ul className="nav__chapters">
-          {CHAPTERS.map((ch) => (
-            <li key={ch.id}>
-              <a
-                href={`#${ch.id}`}
-                className={`nav__link${activeSection === ch.id ? " nav__link--active" : ""}`}
-                {...hoverProps}
-              >
-                {ch.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      {/* Scenes */}
-      <main>
-        <ScenePrologue />
-        <SceneGolden />
-        <SceneRoom />
-        <SceneKgame />
-        <SceneBlackcourt />
-        <SceneEpilogue />
-      </main>
+      <div className="queen-story" data-header="queen">
+        <main>
+          <ScenePrologue />
+          <SceneGolden />
+          <SceneRoom />
+          <SceneKgame />
+          <SceneBlackcourt />
+          <SceneEpilogue />
+        </main>
+      </div>
 
       {/* Footer */}
       <footer className="footer">

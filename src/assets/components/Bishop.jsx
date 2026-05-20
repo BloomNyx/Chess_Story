@@ -101,24 +101,8 @@ export default function Bishop() {
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <div className="bishop-story">
+    <div className="bishop-story" data-header="bishop">
       <div className="bishop-progress" style={{ width: `${progress}%` }} />
-
-      {/* Nav */}
-      <nav className="bishop-nav">
-        <span className="bishop-nav__symbol">♝ The Bishop</span>
-        <ul className="bishop-nav__chapters">
-          {CHAPTERS.map((id, i) => (
-            <li
-              key={id}
-              className={`bishop-nav__chapter${active === id ? " active" : ""}`}
-              onClick={() => scrollTo(id)}
-            >
-              {NAV_LABELS[i]}
-            </li>
-          ))}
-        </ul>
-      </nav>
 
       {/* ── COVER ── */}
       <section id="cover" className="bishop-cover">

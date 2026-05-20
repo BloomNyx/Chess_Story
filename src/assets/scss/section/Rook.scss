@@ -89,56 +89,6 @@
   box-shadow: 0 0 12px rgba(90,143,160,0.5);
 }
 
-// ── Nav ───────────────────────────────────────────────────────
-.rook-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 18px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: linear-gradient(to bottom, rgba(8,10,12,0.98) 0%, transparent 100%);
-  border-bottom: 1px solid rgba(30,38,44,0.4);
-
-  &__symbol {
-    font-family: var(--rook-font-display);
-    font-size: 24px;
-    color: var(--rook-frost);
-    letter-spacing: 0.3em;
-  }
-
-  &__chapters {
-    display: flex;
-    gap: 28px;
-    list-style: none;
-  }
-
-  &__chapter {
-    font-family: var(--rook-font-display);
-    font-size: 13px;
-    letter-spacing: 0.2em;
-    color: var(--rook-mist);
-    cursor: pointer;
-    transition: color 0.3s var(--rook-ease);
-    position: relative;
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -3px; left: 0;
-      width: 0; height: 2px;
-      background: var(--rook-accent);
-      transition: width 0.3s var(--rook-ease);
-    }
-
-    &:hover, &.active {
-      color: var(--rook-frost);
-      &::after { width: 100%; }
-    }
-  }
-}
-
 // ── Cover ─────────────────────────────────────────────────────
 .rook-cover {
   min-height: 100vh;
@@ -509,7 +459,6 @@
 
 // ── Responsive ───────────────────────────────────────────────
 @media (max-width: 768px) {
-  .rook-nav { padding: 14px 20px; &__chapters { display: none; } }
   .rook-scene { padding: 56px 20px; }
   .rook-cover { padding: 100px 20px 60px; }
   .rook-copy  { padding: 52px 20px; }

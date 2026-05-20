@@ -67,61 +67,6 @@
 }
 
 // ── Navigation ───────────────────────────────────────────────
-.knight-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: 20px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: linear-gradient(to bottom, rgba(10,8,6,0.95) 0%, transparent 100%);
-
-  &__symbol {
-    font-family: var(--knight-font-display);
-    font-size: 22px;
-    color: var(--knight-blood);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-
-  &__chapters {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-  }
-
-  &__chapter {
-    font-family: var(--knight-font-display);
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--knight-ghost);
-
-    transition: color var(--knight-transition);
-    position: relative;
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--knight-blood);
-      transition: width var(--knight-transition);
-    }
-
-    &:hover,
-    &.active {
-      color: var(--knight-blood);
-      &::after { width: 100%; }
-    }
-  }
-}
-
 // ── Hero / Cover ─────────────────────────────────────────────
 .knight-cover {
   min-height: 100vh;
@@ -596,12 +541,6 @@
 
 // ── Responsive ───────────────────────────────────────────────
 @media (max-width: 768px) {
-  .knight-nav {
-    padding: 16px 24px;
-
-    &__chapters { display: none; }
-  }
-
   .knight-scene {
     padding: 60px 24px;
   }

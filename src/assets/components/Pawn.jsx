@@ -141,20 +141,8 @@ export default function Pawn() {
   const go = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <div className="pawn-story">
+    <div className="pawn-story" data-header="pawn">
       <div className="pawn-progress" style={{ width: `${progress}%` }} />
-
-      {/* Nav */}
-      <nav className="pawn-nav">
-        <span className="pawn-nav__symbol">♟ Pawn</span>
-        <ul className="pawn-nav__chapters">
-          {IDS.map((id, i) => (
-            <li key={id} className={`pawn-nav__chapter${active === id ? " active" : ""}`} onClick={() => go(id)}>
-              {LABELS[i]}
-            </li>
-          ))}
-        </ul>
-      </nav>
 
       {/* ── COVER ── */}
       <section id="cover" className="pawn-cover">

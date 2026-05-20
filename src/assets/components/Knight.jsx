@@ -90,25 +90,9 @@ export default function Knight() {
   };
 
   return (
-    <div className="knight-story">
+    <div className="knight-story" data-header="knight">
       {/* Progress */}
       <div className="knight-progress" style={{ width: `${progress}%` }} />
-
-      {/* Nav */}
-      <nav className="knight-nav">
-        <span className="knight-nav__symbol">♞ Knight</span>
-        <ul className="knight-nav__chapters">
-          {CHAPTERS.map((id, i) => (
-            <li
-              key={id}
-              className={`knight-nav__chapter${active === id ? " active" : ""}`}
-              onClick={() => scrollTo(id)}
-            >
-              {NAV_LABELS[i]}
-            </li>
-          ))}
-        </ul>
-      </nav>
 
       {/* ── COVER ── */}
       <section id="cover" className="knight-cover">

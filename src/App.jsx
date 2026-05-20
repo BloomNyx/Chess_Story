@@ -8,6 +8,7 @@ import Knight from "./assets/components/Knight";
 import Bishop from "./assets/components/Bishop";
 import Rook from "./assets/components/Rook";
 import Pawn from "./assets/components/Pawn";
+import HeaderManager from "./assets/components/header/HeaderManager";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -15,7 +16,7 @@ export default function App() {
   return (
     <>
       <Cursor />
-
+      <HeaderManager />
       <main className="main-page">
         {loading ? (
           <Splash onFinish={() => setLoading(false)} />

@@ -79,20 +79,8 @@ export default function Rook() {
   const go = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <div className="rook-story">
+    <div className="rook-story" data-header="rook">
       <div className="rook-progress" style={{ width: `${progress}%` }} />
-
-      {/* Nav */}
-      <nav className="rook-nav">
-        <span className="rook-nav__symbol">♜ ROOK</span>
-        <ul className="rook-nav__chapters">
-          {IDS.map((id, i) => (
-            <li key={id} className={`rook-nav__chapter${active === id ? " active" : ""}`} onClick={() => go(id)}>
-              {LABELS[i]}
-            </li>
-          ))}
-        </ul>
-      </nav>
 
       {/* ── COVER ── */}
       <section id="cover" className="rook-cover">

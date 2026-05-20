@@ -76,56 +76,6 @@
   transition: width 0.1s linear;
 }
 
-// ── Nav ───────────────────────────────────────────────────────
-.pawn-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 18px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: linear-gradient(to bottom, rgba(14,13,11,0.98) 0%, transparent 100%);
-
-  &__symbol {
-    font-family: var(--pawn-font-display);
-    font-size: 20px;
-    color: var(--pawn-parchment);
-    font-style: italic;
-    letter-spacing: 0.1em;
-  }
-
-  &__chapters {
-    display: flex;
-    gap: 28px;
-    list-style: none;
-  }
-
-  &__chapter {
-    font-family: var(--pawn-font-display);
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    color: var(--pawn-mist);
-    cursor: pointer;
-    transition: color 0.3s var(--pawn-ease);
-    position: relative;
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -3px; left: 0;
-      width: 0; height: 1px;
-      background: var(--pawn-crown);
-      transition: width 0.3s var(--pawn-ease);
-    }
-
-    &:hover, &.active {
-      color: var(--pawn-parchment);
-      &::after { width: 100%; }
-    }
-  }
-}
-
 // ── Cover ─────────────────────────────────────────────────────
 .pawn-cover {
   min-height: 100vh;
@@ -530,7 +480,6 @@
 
 // ── Responsive ───────────────────────────────────────────────
 @media (max-width: 768px) {
-  .pawn-nav { padding: 14px 20px; &__chapters { display: none; } }
   .pawn-scene { padding: 56px 20px; }
   .pawn-cover { padding: 100px 20px 60px; }
   .pawn-copy  { padding: 52px 20px; }

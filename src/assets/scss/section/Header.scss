@@ -1,0 +1,316 @@
+// ============================================================
+// Queen Header
+// ============================================================
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: var(--sp-6) var(--sp-12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 400;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(12, 11, 9, 0.8) 0%, transparent 100%);
+    z-index: -1;
+  }
+
+  &__logo {
+    font-family: var(--font-display);
+    font-size: 10px;
+    letter-spacing: 6px;
+    color: var(--gold);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity var(--t-mid) ease;
+
+    &:hover { opacity: 1; }
+  }
+
+  &__chapters {
+    display: flex;
+    gap: var(--sp-8);
+    list-style: none;
+  }
+
+  &__link {
+    font-family: var(--font-display);
+    font-size: 8px;
+    letter-spacing: 4px;
+    color: rgba(237, 229, 208, 0.28);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color var(--t-mid) ease;
+    cursor: none;
+
+    &:hover,
+    &--active { color: var(--gold); }
+  }
+}
+
+// ============================================================
+// Knight Header
+// ============================================================
+
+.knight-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(10,8,6,0.95) 0%, transparent 100%);
+
+  &__symbol {
+    font-family: var(--knight-font-display);
+    font-size: 22px;
+    color: var(--knight-blood);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  &__chapters {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  &__chapter {
+    font-family: var(--knight-font-display);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--knight-ghost);
+
+    transition: color var(--knight-transition);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--knight-blood);
+      transition: width var(--knight-transition);
+    }
+
+    &:hover,
+    &.active {
+      color: var(--knight-blood);
+      &::after { width: 100%; }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .knight-nav {
+    padding: 16px 24px;
+
+    &__chapters { display: none; }
+  }
+}
+
+// ============================================================
+// Bishop Header
+// ============================================================
+
+.bishop-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(7,6,10,0.97) 0%, transparent 100%);
+
+  &__symbol {
+    font-family: var(--bishop-font-display);
+    font-size: 18px;
+    color: var(--bishop-gold);
+    letter-spacing: 0.15em;
+    font-style: italic;
+  }
+
+  &__chapters {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  &__chapter {
+    font-family: var(--bishop-font-display);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--bishop-mist);
+    transition: color var(--bishop-transition);
+    position: relative;
+
+    &::before {
+      content: '†';
+      position: absolute;
+      left: -12px;
+      opacity: 0;
+      color: var(--bishop-gold);
+      transition: opacity var(--bishop-transition);
+    }
+
+    &:hover,
+    &.active {
+      color: var(--bishop-gold);
+      &::before { opacity: 1; }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .bishop-nav {
+    padding: 16px 24px;
+    &__chapters { display: none; }
+  }
+}
+
+// ============================================================
+// Rook Header
+// ============================================================
+
+.rook-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 18px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(8,10,12,0.98) 0%, transparent 100%);
+  border-bottom: 1px solid rgba(30,38,44,0.4);
+
+  &__symbol {
+    font-family: var(--rook-font-display);
+    font-size: 24px;
+    color: var(--rook-frost);
+    letter-spacing: 0.3em;
+  }
+
+  &__chapters {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  &__chapter {
+    font-family: var(--rook-font-display);
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: var(--rook-mist);
+    cursor: pointer;
+    transition: color 0.3s var(--rook-ease);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--rook-accent);
+      transition: width 0.3s var(--rook-ease);
+    }
+
+    &:hover,
+    &.active {
+      color: var(--rook-frost);
+      &::after { width: 100%; }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .rook-nav {
+    padding: 14px 20px;
+    &__chapters { display: none; }
+  }
+}
+
+// ============================================================
+// Pawn Header
+// ============================================================
+
+.pawn-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 18px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(14,13,11,0.98) 0%, transparent 100%);
+
+  &__symbol {
+    font-family: var(--pawn-font-display);
+    font-size: 20px;
+    color: var(--pawn-parchment);
+    font-style: italic;
+    letter-spacing: 0.1em;
+  }
+
+  &__chapters {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  &__chapter {
+    font-family: var(--pawn-font-display);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--pawn-mist);
+    cursor: pointer;
+    transition: color 0.3s var(--pawn-ease);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--pawn-crown);
+      transition: width 0.3s var(--pawn-ease);
+    }
+
+    &:hover,
+    &.active {
+      color: var(--pawn-parchment);
+      &::after { width: 100%; }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .pawn-nav {
+    padding: 14px 20px;
+    &__chapters { display: none; }
+  }
+}
+
